@@ -81,7 +81,9 @@ export interface Dictionary {
     ctaPrimary: string;
     ctaSecondary: string;
     phoneLabel: string;
-    wechatUnavailable: string;
+    wechatTitle: string;
+    wechatCopy: string;
+    wechatOpen: string;
     placeholderNote: string;
     domainLabel: string;
   };

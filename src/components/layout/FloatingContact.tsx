@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { CONTACT } from "@/lib/contact";
 import { MessageCircle, Phone } from "lucide-react";
@@ -34,12 +35,47 @@ function InstagramIcon({ className }: BrandIconProps) {
   );
 }
 
-function WeChatIcon({ className }: BrandIconProps) {
+export function WeChatIcon({ className }: BrandIconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
       <path d="M10 3C5.6 3 2 5.8 2 9.3c0 2 1.1 3.8 2.9 5l-.7 2.5 2.8-1.4c.9.3 1.9.4 3 .4h.3a6.1 6.1 0 0 1-.4-2.1c0-3.5 3.2-6.3 7.3-6.6C15.9 4.6 13.2 3 10 3Zm-3 5.6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm5.7 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
       <path d="M17.1 8.6c-3.2 0-5.8 2.2-5.8 5s2.6 5 5.8 5c.8 0 1.5-.1 2.2-.4l2.3 1.1-.6-2c1.2-.9 2-2.2 2-3.7 0-2.8-2.6-5-5.9-5Zm-2.1 4.2a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4.2 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z" />
     </svg>
+  );
+}
+
+export function WeChatButton({ className, children }: { className?: string; children: React.ReactNode }) {
+  const { dict } = useLocale();
+  const ref = useRef<HTMLDialogElement>(null);
+  const [copied, setCopied] = useState(false);
+
+  return (
+    <>
+      <button type="button" className={className} onClick={() => ref.current?.showModal()}>
+        {children}
+      </button>
+      <dialog
+        ref={ref}
+        onClick={(e) => e.target === e.currentTarget && ref.current?.close()}
+        className="w-[calc(100%-2rem)] max-w-sm rounded-2xl border border-silver-400/20 bg-navy-900 p-6 text-center normal-case tracking-normal text-paper backdrop:bg-ink/80"
+      >
+        <button type="button" onClick={() => ref.current?.close()} aria-label="Close" className="absolute right-4 top-3 text-2xl text-silver-400 hover:text-paper">
+          ×
+        </button>
+        <h2 className="font-display text-xl font-bold">{dict.contact.wechatTitle}</h2>
+        <Image src={CONTACT.wechat.qr} alt="WeChat QR" width={592} height={592} className="mx-auto mt-5 w-56 rounded-xl bg-paper p-3" />
+        <p className="mt-4 break-all font-mono text-[13px] text-silver-400">{CONTACT.wechat.id}</p>
+        <div className="mt-5 grid gap-3 text-[14px] font-semibold">
+          <button type="button" onClick={() => navigator.clipboard.writeText(CONTACT.wechat.id).then(() => setCopied(true))} className="rounded-full border border-silver-400/30 px-5 py-3 hover:border-[#07C160]">
+            {dict.contact.wechatCopy}
+            {copied && " ✓"}
+          </button>
+          <a href={CONTACT.wechat.url} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#07C160] px-5 py-3 text-ink lg:hidden">
+            {dict.contact.wechatOpen}
+          </a>
+        </div>
+      </dialog>
+    </>
   );
 }
 
@@ -81,7 +117,7 @@ export function FloatingContact() {
           <a className={linkClass} href={CONTACT.telegram} target="_blank" rel="noopener noreferrer"><TelegramIcon className={iconClass} /><span>Telegram</span></a>
           <a className={linkClass} href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className={iconClass} /><span>WhatsApp</span></a>
           <a className={linkClass} href={CONTACT.instagram} target="_blank" rel="noopener noreferrer"><InstagramIcon className={iconClass} /><span>Instagram</span></a>
-          <span className="flex items-center gap-3 px-4 py-3 text-[13px] text-silver-500" aria-disabled="true"><WeChatIcon className="h-5 w-5 shrink-0" /><span>{dict.contact.wechatUnavailable}</span></span>
+          <WeChatButton className={`${linkClass} w-full text-left`}><WeChatIcon className="h-5 w-5 shrink-0 text-[#07C160]" /><span>WeChat</span></WeChatButton>
         </div>
       )}
       <button

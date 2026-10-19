@@ -7,6 +7,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { GridBackdrop } from "@/components/visuals/GridBackdrop";
 import { CONTACT } from "@/lib/contact";
+import { WeChatButton } from "@/components/layout/FloatingContact";
 
 export function ContactCTA() {
   const { dict } = useLocale();
@@ -50,7 +51,7 @@ export function ContactCTA() {
         </Reveal>
 
         <Reveal delay={0.4}>
-          <p className="mt-6 text-[11px] uppercase tracking-wider text-silver-500">
+          <div className="mt-6 text-[11px] uppercase tracking-wider text-silver-500">
             <a href={CONTACT.phoneHref} className="hover:text-paper">
               {CONTACT.phone}
             </a>
@@ -59,10 +60,12 @@ export function ContactCTA() {
               Telegram
             </a>
             {" · "}
+            <WeChatButton className="uppercase tracking-wider text-[#07C160] hover:text-paper">WeChat</WeChatButton>
+            {" · "}
             <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-paper">
               Instagram
             </a>
-          </p>
+          </div>
         </Reveal>
 
         <Reveal delay={0.5}>

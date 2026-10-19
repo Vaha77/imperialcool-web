@@ -8,7 +8,7 @@ import { Search } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { TelegramIcon, WhatsAppIcon } from "@/components/layout/FloatingContact";
+import { TelegramIcon, WeChatButton, WeChatIcon, WhatsAppIcon } from "@/components/layout/FloatingContact";
 import { CONTACT } from "@/lib/contact";
 import type { CatalogPage, Product } from "@/lib/catalog";
 import clsx from "@/lib/clsx";
@@ -163,7 +163,7 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
               ))}
             </ul>
             <p className="mt-6 text-2xl font-bold">{price(selected)}</p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <a
                 href={`${CONTACT.whatsapp}?text=${encodeURIComponent(`${selected.name} haqida ma'lumot olmoqchiman`)}`}
                 target="_blank"
@@ -175,6 +175,9 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
               <a href={CONTACT.telegram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-full bg-[#229ED9] px-5 py-3 font-semibold text-paper">
                 <TelegramIcon className="h-5 w-5" /> Telegram
               </a>
+              <WeChatButton className="flex items-center justify-center gap-2 rounded-full bg-[#07C160] px-5 py-3 font-semibold text-ink">
+                <WeChatIcon className="h-5 w-5" /> WeChat
+              </WeChatButton>
             </div>
           </div>
         )}
