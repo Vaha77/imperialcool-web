@@ -1,8 +1,10 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- external catalog images, no next/image domain config */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -13,6 +15,9 @@ import clsx from "@/lib/clsx";
 import { IconEvaporator } from "@/components/visuals/ProductIcons";
 
 type Props = { initial: CatalogPage; categories: [string, string][]; category: string; q: string };
+
+const href = (category: string, q: string) =>
+  `/products?${new URLSearchParams({ ...(category !== "all" && { category }), ...(q && { q }) })}`;
 
 const chip = "rounded-full border px-4 py-1.5 text-[12px] font-semibold transition-colors";
 
@@ -25,6 +30,22 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<Product | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
+  const router = useRouter();
+  const [text, setText] = useState(q);
+  const [pending, startTransition] = useTransition();
+  const [shown, setShown] = useState(initial);
+  if (shown !== initial) {
+    setShown(initial);
+    setProducts(initial.products);
+    setCursor(initial.nextCursor);
+    setError(initial.error);
+  }
+
+  useEffect(() => {
+    if (text.trim() === q) return;
+    const id = setTimeout(() => startTransition(() => router.replace(href(category, text.trim()), { scroll: false })), 300);
+    return () => clearTimeout(id);
+  }, [text, q, category, router]);
 
   const price = (p: Product) => (p.priceUsd ? `$${Number(p.priceUsd).toLocaleString("en-US")}` : t.askPrice);
 
@@ -48,23 +69,37 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
   return (
     <section className="min-h-[92svh] bg-ink pb-24 pt-28">
       <Container>
-        <form action="/products" className="flex gap-2">
-          {category !== "all" && <input type="hidden" name="category" value={category} />}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            (document.activeElement as HTMLElement | null)?.blur();
+          }}
+          className="relative"
+        >
           <input
             type="search"
-            name="q"
-            defaultValue={q}
+            enterKeyHint="search"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             placeholder={t.search}
             aria-label={t.search}
-            className="w-full min-w-0 rounded-full border border-silver-400/20 bg-navy-900 px-5 py-3 text-[14px] text-paper placeholder:text-silver-500 focus:border-ice-400 focus:outline-none"
+            className="w-full min-w-0 rounded-full border border-silver-400/20 bg-navy-900 py-3 pl-5 pr-20 text-[14px] text-paper placeholder:text-silver-500 focus:border-ice-400 focus:outline-none [&::-webkit-search-cancel-button]:appearance-none"
           />
+          <div className="absolute inset-y-0 right-4 flex items-center gap-2 text-silver-500">
+            {text && (
+              <button type="button" onClick={() => setText("")} aria-label="Clear" className="px-1 text-xl leading-none hover:text-paper">
+                ×
+              </button>
+            )}
+            <Search aria-hidden className="h-4 w-4" />
+          </div>
         </form>
 
         <nav className="mt-6 flex flex-wrap gap-2">
           {[["all", t.all], ...categories].map(([slug, name]) => (
             <Link
               key={slug}
-              href={`/products?${new URLSearchParams(slug === "all" ? (q ? { q } : {}) : { category: slug, ...(q ? { q } : {}) })}`}
+              href={href(slug, q)}
               className={clsx(chip, slug === category ? "border-ice-400 bg-ice-400/10 text-ice-400" : "border-silver-400/20 text-silver-400 hover:text-paper")}
             >
               {t.categories[slug] ?? name}
@@ -74,7 +109,7 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
 
         {products.length === 0 && <p className="mt-16 text-center text-silver-400">{error ? t.error : t.empty}</p>}
 
-        <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-silver-400/15 bg-silver-400/15 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className={clsx("mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-silver-400/15 bg-silver-400/15 transition-opacity sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", pending && "opacity-40")}>
           {products.map((p) => (
             <button key={p.id} type="button" onClick={() => open(p)} className="group relative flex flex-col bg-navy-900 p-6 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-ice-400">
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ice-400/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

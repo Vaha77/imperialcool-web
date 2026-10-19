@@ -6,5 +6,5 @@ export default async function ProductsPage({ searchParams }: { searchParams: { c
   const q = searchParams.q?.trim() || "";
   const [initial, categories] = await Promise.all([getCatalog({ category, q }), getCategories()]);
 
-  return <ProductCatalog key={`${category}|${q}`} initial={initial} categories={categories} category={category} q={q} />;
+  return <ProductCatalog initial={initial} categories={categories} category={category} q={q} />;
 }
