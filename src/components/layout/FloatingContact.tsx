@@ -7,7 +7,7 @@ import { MessageCircle, Phone } from "lucide-react";
 
 type BrandIconProps = { className?: string };
 
-function TelegramIcon({ className }: BrandIconProps) {
+export function TelegramIcon({ className }: BrandIconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
       <path d="M21.8 3.2 2.9 10.5a1 1 0 0 0 .05 1.89l4.68 1.47 1.8 5.73a.9.9 0 0 0 1.53.36l2.76-2.72 4.76 3.5a1.1 1.1 0 0 0 1.73-.67l3.34-15.52a1.1 1.1 0 0 0-1.75-1.34ZM9.3 13.38l9.9-7.13-7.72 8.4-.37 3.05-1.81-4.32Z" />
@@ -15,7 +15,7 @@ function TelegramIcon({ className }: BrandIconProps) {
   );
 }
 
-function WhatsAppIcon({ className }: BrandIconProps) {
+export function WhatsAppIcon({ className }: BrandIconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
       <path d="M20.4 11.6a8.4 8.4 0 0 1-12.3 7.5L3.5 20.5l1.4-4.4a8.4 8.4 0 1 1 15.5-4.5Z" />

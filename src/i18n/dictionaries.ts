@@ -31,10 +31,15 @@ const uz: Dictionary = {
     cta: "BARCHA MAHSULOTLAR",
     scroll: "Pastga tushing",
   },
-  comingSoon: {
-    message: "IMPERIAL COOL mahsulotlar katalogi tayyorlanmoqda.",
-    detail: "Mahsulotlar, texnik ma’lumotlar va to‘liq assortiment tez orada taqdim etiladi.",
-    back: "BOSH SAHIFAGA QAYTISH",
+  catalog: {
+    search: "Mahsulot qidirish…",
+    all: "Hammasi",
+    loadMore: "Yana ko‘rsatish",
+    askPrice: "Narxini so‘rang",
+    available: "Mavjud",
+    expected: "Kutilmoqda",
+    error: "Katalogni yuklab bo‘lmadi. Keyinroq urinib ko‘ring.",
+    empty: "Hech narsa topilmadi.",
   },
   china: {
     eyebrow: "XALQARO HAMKORLIK",
@@ -151,10 +156,15 @@ const ru: Dictionary = {
     cta: "ВСЯ ПРОДУКЦИЯ",
     scroll: "Прокрутите вниз",
   },
-  comingSoon: {
-    message: "Каталог продукции IMPERIAL COOL готовится к запуску.",
-    detail: "Продукция, техническая информация и полный ассортимент скоро будут доступны.",
-    back: "НА ГЛАВНУЮ",
+  catalog: {
+    search: "Поиск товаров…",
+    all: "Все",
+    loadMore: "Показать ещё",
+    askPrice: "Уточните цену",
+    available: "В наличии",
+    expected: "Ожидается",
+    error: "Не удалось загрузить каталог. Попробуйте позже.",
+    empty: "Ничего не найдено.",
   },
   china: {
     eyebrow: "МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО",
@@ -271,10 +281,15 @@ const en: Dictionary = {
     cta: "ALL PRODUCTS",
     scroll: "Scroll to explore",
   },
-  comingSoon: {
-    message: "The IMPERIAL COOL product catalog is in preparation.",
-    detail: "Products, technical information, and the full range will be available soon.",
-    back: "BACK TO HOME",
+  catalog: {
+    search: "Search products…",
+    all: "All",
+    loadMore: "Show more",
+    askPrice: "Ask for price",
+    available: "In stock",
+    expected: "Expected",
+    error: "Could not load the catalog. Please try again later.",
+    empty: "Nothing found.",
   },
   china: {
     eyebrow: "INTERNATIONAL COOPERATION",
@@ -391,10 +406,15 @@ const zh: Dictionary = {
     cta: "所有产品",
     scroll: "向下滚动",
   },
-  comingSoon: {
-    message: "IMPERIAL COOL 产品目录正在筹备中。",
-    detail: "产品、技术资料及完整产品系列即将发布。",
-    back: "返回首页",
+  catalog: {
+    search: "搜索产品…",
+    all: "全部",
+    loadMore: "显示更多",
+    askPrice: "询价",
+    available: "有货",
+    expected: "待到货",
+    error: "目录加载失败，请稍后再试。",
+    empty: "未找到相关产品。",
   },
   china: {
     eyebrow: "国际合作",

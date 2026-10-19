@@ -30,10 +30,15 @@ export interface Dictionary {
     cta: string;
     scroll: string;
   };
-  comingSoon: {
-    message: string;
-    detail: string;
-    back: string;
+  catalog: {
+    search: string;
+    all: string;
+    loadMore: string;
+    askPrice: string;
+    available: string;
+    expected: string;
+    error: string;
+    empty: string;
   };
   china: {
     eyebrow: string;
