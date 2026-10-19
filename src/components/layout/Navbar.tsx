@@ -2,6 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { localeLabels, locales } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/types";
@@ -10,10 +12,10 @@ import { Container } from "@/components/ui/Container";
 
 const NAV_ANCHORS: { key: "about" | "cooperation" | "products" | "contact"; href: string }[] =
   [
-    { key: "about", href: "#brand" },
-    { key: "cooperation", href: "#cooperation" },
-    { key: "products", href: "#products" },
-    { key: "contact", href: "#contact" },
+    { key: "about", href: "/#brand" },
+    { key: "cooperation", href: "/#cooperation" },
+    { key: "products", href: "/#products" },
+    { key: "contact", href: "/#contact" },
   ];
 
 function LanguageSwitcher({
@@ -192,6 +194,15 @@ export function Navbar() {
   const { locale, dict, setLocale } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  // On the home page keep native CSS smooth scroll; Next router would jump instantly.
+  const jump = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setMobileOpen(false);
+    if (pathname !== "/") return;
+    e.preventDefault();
+    document.getElementById(e.currentTarget.hash.slice(1) || "top")?.scrollIntoView();
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -225,22 +236,24 @@ export function Navbar() {
     >
       <Container>
         <div className="flex h-[76px] items-center justify-between">
-          <a
-            href="#top"
+          <Link
+            href="/"
+            onClick={jump}
             className="font-display text-[15px] font-bold uppercase tracking-wider2 text-paper"
           >
             Imperial<span className="text-ice-400">Cool</span>
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-10 lg:flex">
             {NAV_ANCHORS.map((item) => (
-              <a
+              <Link
                 key={item.key}
                 href={item.href}
+                onClick={jump}
                 className="text-[13px] font-medium uppercase tracking-wider text-silver-400 transition-colors duration-300 hover:text-paper"
               >
                 {navLabel[item.key]}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -284,14 +297,14 @@ export function Navbar() {
           >
             <Container className="flex flex-col gap-6 py-8">
               {NAV_ANCHORS.map((item) => (
-                <a
+                <Link
                   key={item.key}
                   href={item.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={jump}
                   className="text-lg font-medium uppercase tracking-wide text-paper"
                 >
                   {navLabel[item.key]}
-                </a>
+                </Link>
               ))}
             </Container>
           </motion.div>
