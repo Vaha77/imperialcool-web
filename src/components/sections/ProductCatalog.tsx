@@ -67,7 +67,7 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
               href={`/products?${new URLSearchParams(slug === "all" ? (q ? { q } : {}) : { category: slug, ...(q ? { q } : {}) })}`}
               className={clsx(chip, slug === category ? "border-ice-400 bg-ice-400/10 text-ice-400" : "border-silver-400/20 text-silver-400 hover:text-paper")}
             >
-              {name}
+              {t.categories[slug] ?? name}
             </Link>
           ))}
         </nav>
@@ -81,7 +81,7 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
               <div className={clsx("relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl", p.image ? "bg-paper" : "bg-ink")}>
                 {p.image ? <img src={p.image} alt={p.name} loading="lazy" className="h-full w-full object-contain" /> : <IconEvaporator className="h-16 w-16 text-ice-400/40" />}
               </div>
-              <span className="relative mt-5 text-[11px] font-semibold uppercase tracking-wider2 text-ice-400">{p.brand}</span>
+              <span className="relative mt-5 text-[11px] font-semibold uppercase tracking-wider2 text-ice-400">{p.brand} · {t.categories[p.category] ?? p.categoryName}</span>
               <h3 className="relative mt-2 text-[15px] font-semibold leading-snug text-paper">{p.name}</h3>
               <ul className="relative mt-3 space-y-1 text-[13px] text-silver-500">
                 {p.specs.slice(0, 3).map((s) => (

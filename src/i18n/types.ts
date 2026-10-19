@@ -39,6 +39,7 @@ export interface Dictionary {
     expected: string;
     error: string;
     empty: string;
+    categories: Record<string, string>;
   };
   china: {
     eyebrow: string;
