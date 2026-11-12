@@ -4,6 +4,7 @@ import { useLocale } from "@/i18n/LocaleProvider";
 import { localeLabels, locales } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/Container";
 import clsx from "@/lib/clsx";
+import { WeChatButton } from "@/components/layout/FloatingContact";
 import { CONTACT } from "@/lib/contact";
 
 export function Footer() {
@@ -29,6 +30,8 @@ export function Footer() {
             <a href={CONTACT.telegram} target="_blank" rel="noopener noreferrer" className="hover:text-paper">Telegram</a>
             {" · "}
             <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="hover:text-paper">WhatsApp</a>
+            {" · "}
+            <WeChatButton className="text-[#07C160] hover:text-paper">WeChat</WeChatButton>
           </div>
         </div>
 

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { Container } from "@/components/ui/Container";
-import { TelegramIcon, WhatsAppIcon } from "@/components/layout/FloatingContact";
+import { TelegramIcon, WeChatButton, WeChatIcon, WhatsAppIcon } from "@/components/layout/FloatingContact";
 import { CONTACT } from "@/lib/contact";
 import type { CatalogPage, Product } from "@/lib/catalog";
 import clsx from "@/lib/clsx";
@@ -86,7 +86,7 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
 
         {products.length === 0 && <p className="mt-16 text-center text-silver-400">{error ? t.error : t.empty}</p>}
 
-        <div className={clsx("mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-silver-400/15 bg-silver-400/15 transition-opacity sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4", pending && "opacity-40")}>
+        <div className={clsx("mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-silver-400/15 bg-silver-400/15 transition-opacity sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4", pending && "opacity-40")}>
           {products.map((p) => (
             <button key={p.id} type="button" onClick={() => open(p)} className="group relative flex flex-col bg-navy-900 p-6 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-ice-400">
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ice-400/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -145,6 +145,9 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
               <a href={CONTACT.telegram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-full bg-[#229ED9] px-5 py-3 font-semibold text-paper">
                 <TelegramIcon className="h-5 w-5" /> Telegram
               </a>
+              <WeChatButton className="flex items-center justify-center gap-2 rounded-full bg-[#07C160] px-5 py-3 font-semibold text-ink">
+                <WeChatIcon className="h-5 w-5" /> WeChat
+              </WeChatButton>
             </div>
           </div>
         )}

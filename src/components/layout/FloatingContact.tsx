@@ -64,12 +64,12 @@ export function WeChatButton({ className, children }: { className?: string; chil
         </button>
         <h2 className="font-display text-xl font-bold">{dict.contact.wechatTitle}</h2>
         <Image src={CONTACT.wechat.qr} alt="WeChat QR" width={592} height={592} className="mx-auto mt-5 w-56 rounded-xl bg-paper p-3" />
-        <p className="mt-4 break-all font-mono text-[13px] text-silver-400">{CONTACT.wechat.id}</p>
+        {CONTACT.wechat.id && <p className="mt-4 break-all font-mono text-[13px] text-silver-400">{CONTACT.wechat.id}</p>}
         <div className="mt-5 grid gap-3 text-[14px] font-semibold">
-          <button type="button" onClick={() => navigator.clipboard.writeText(CONTACT.wechat.id).then(() => setCopied(true))} className="rounded-full border border-silver-400/30 px-5 py-3 hover:border-[#07C160]">
+          {CONTACT.wechat.id && <button type="button" onClick={() => navigator.clipboard.writeText(CONTACT.wechat.id).then(() => setCopied(true))} className="rounded-full border border-silver-400/30 px-5 py-3 hover:border-[#07C160]">
             {dict.contact.wechatCopy}
             {copied && " ✓"}
-          </button>
+          </button>}
           <a href={CONTACT.wechat.url} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#07C160] px-5 py-3 text-ink lg:hidden">
             {dict.contact.wechatOpen}
           </a>
@@ -116,6 +116,7 @@ export function FloatingContact() {
           </a>
           <a className={linkClass} href={CONTACT.telegram} target="_blank" rel="noopener noreferrer"><TelegramIcon className={iconClass} /><span>Telegram</span></a>
           <a className={linkClass} href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className={iconClass} /><span>WhatsApp</span></a>
+          <WeChatButton className={`${linkClass} w-full text-left`}><WeChatIcon className="h-5 w-5 shrink-0 text-[#07C160]" /><span>WeChat</span></WeChatButton>
         </div>
       )}
       <button

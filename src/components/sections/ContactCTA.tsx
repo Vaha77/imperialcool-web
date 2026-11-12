@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { GridBackdrop } from "@/components/visuals/GridBackdrop";
+import { WeChatButton } from "@/components/layout/FloatingContact";
 import { CONTACT } from "@/lib/contact";
 
 export function ContactCTA() {
@@ -58,6 +59,8 @@ export function ContactCTA() {
             <a href={CONTACT.telegram} target="_blank" rel="noopener noreferrer" className="hover:text-paper">
               Telegram
             </a>
+            {" · "}
+            <WeChatButton className="uppercase tracking-wider text-[#07C160] hover:text-paper">WeChat</WeChatButton>
           </div>
         </Reveal>
 

@@ -3,7 +3,7 @@ export const CONTACT = {
   phoneHref: "tel:+998972513482",
   telegram: "https://t.me/+998972513482",
   whatsapp: "https://wa.me/998972513482",
-  wechat: { id: "wxid_yw95kva0bjy712", url: "https://u.wechat.com/kAYMvDpK8kRKX6Kl0rL1KDk?s=2", qr: "/wechat-qr.png" },
+  wechat: { id: "", url: "https://u.wechat.com/kABW7X1S2TIoQCPfoIKISME?s=3", qr: "/wechat-qr.png" },
   instagram: "https://www.instagram.com/buyuk_karavan/",
 } as const;
 
