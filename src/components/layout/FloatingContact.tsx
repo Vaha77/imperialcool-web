@@ -116,8 +116,6 @@ export function FloatingContact() {
           </a>
           <a className={linkClass} href={CONTACT.telegram} target="_blank" rel="noopener noreferrer"><TelegramIcon className={iconClass} /><span>Telegram</span></a>
           <a className={linkClass} href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppIcon className={iconClass} /><span>WhatsApp</span></a>
-          <a className={linkClass} href={CONTACT.instagram} target="_blank" rel="noopener noreferrer"><InstagramIcon className={iconClass} /><span>Instagram</span></a>
-          <WeChatButton className={`${linkClass} w-full text-left`}><WeChatIcon className="h-5 w-5 shrink-0 text-[#07C160]" /><span>WeChat</span></WeChatButton>
         </div>
       )}
       <button
