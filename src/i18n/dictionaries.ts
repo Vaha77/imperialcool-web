@@ -34,7 +34,6 @@ const uz: Dictionary = {
   catalog: {
     search: "Mahsulot qidirish…",
     all: "Hammasi",
-    loadMore: "Yana ko‘rsatish",
     askPrice: "Narxini so‘rang",
     available: "Mavjud",
     expected: "Kutilmoqda",
@@ -162,7 +161,6 @@ const ru: Dictionary = {
   catalog: {
     search: "Поиск товаров…",
     all: "Все",
-    loadMore: "Показать ещё",
     askPrice: "Уточните цену",
     available: "В наличии",
     expected: "Ожидается",
@@ -317,7 +315,6 @@ const en: Dictionary = {
   catalog: {
     search: "Search products…",
     all: "All",
-    loadMore: "Show more",
     askPrice: "Ask for price",
     available: "In stock",
     expected: "Expected",
@@ -472,7 +469,6 @@ const zh: Dictionary = {
   catalog: {
     search: "搜索产品…",
     all: "全部",
-    loadMore: "显示更多",
     askPrice: "询价",
     available: "有货",
     expected: "待到货",

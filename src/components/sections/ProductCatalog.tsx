@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { TelegramIcon, WeChatButton, WeChatIcon, WhatsAppIcon } from "@/components/layout/FloatingContact";
 import { CONTACT } from "@/lib/contact";
 import type { CatalogPage, Product } from "@/lib/catalog";
@@ -24,22 +23,12 @@ const chip = "rounded-full border px-4 py-1.5 text-[12px] font-semibold transiti
 export function ProductCatalog({ initial, categories, category, q }: Props) {
   const { dict } = useLocale();
   const t = dict.catalog;
-  const [products, setProducts] = useState(initial.products);
-  const [cursor, setCursor] = useState(initial.nextCursor);
-  const [error, setError] = useState(initial.error);
-  const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<Product | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const router = useRouter();
   const [text, setText] = useState(q);
   const [pending, startTransition] = useTransition();
-  const [shown, setShown] = useState(initial);
-  if (shown !== initial) {
-    setShown(initial);
-    setProducts(initial.products);
-    setCursor(initial.nextCursor);
-    setError(initial.error);
-  }
+  const { products, error } = initial;
 
   useEffect(() => {
     if (text.trim() === q) return;
@@ -48,18 +37,6 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
   }, [text, q, category, router]);
 
   const price = (p: Product) => (p.priceUsd ? `$${Number(p.priceUsd).toLocaleString("en-US")}` : t.askPrice);
-
-  async function loadMore() {
-    setLoading(true);
-    const params = new URLSearchParams({ category, q, cursor: cursor!, seed: initial.seed });
-    const page: CatalogPage = await fetch(`/api/catalog?${params}`).then((r) => r.json()).catch(() => ({ error: true }));
-    if (page.error) setError(true);
-    else {
-      setProducts((prev) => [...prev, ...page.products]);
-      setCursor(page.nextCursor);
-    }
-    setLoading(false);
-  }
 
   function open(p: Product) {
     setSelected(p);
@@ -128,13 +105,6 @@ export function ProductCatalog({ initial, categories, category, q }: Props) {
           ))}
         </div>
 
-        {cursor && (
-          <div className="mt-10 text-center">
-            <Button onClick={loadMore} disabled={loading}>
-              {t.loadMore}
-            </Button>
-          </div>
-        )}
       </Container>
 
       <dialog

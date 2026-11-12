@@ -33,7 +33,6 @@ export interface Dictionary {
   catalog: {
     search: string;
     all: string;
-    loadMore: string;
     askPrice: string;
     available: string;
     expected: string;
